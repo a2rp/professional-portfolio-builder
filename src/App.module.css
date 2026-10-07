@@ -1,0 +1,30 @@
+.appShell {
+    display: grid;
+    min-height: 100vh;
+    padding: 32px;
+    place-items: center;
+    background: var(--page);
+
+    .setupMessage {
+        max-width: 520px;
+        padding: 48px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--surface);
+        text-align: center;
+
+        p {
+            color: var(--violet);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        h1 {
+            margin-top: 12px;
+            color: var(--ink);
+            font-family: var(--font-display);
+            font-size: 32px;
+            line-height: 1.12;
+        }
+    }
+}
