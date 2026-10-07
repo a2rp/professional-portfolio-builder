@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SiteHeader from "./components/siteHeader/index.jsx";
 import PortfolioEditor from "./components/portfolioEditor/index.jsx";
+import SitePreview from "./components/sitePreview/index.jsx";
 import { starterPortfolio, themeOptions } from "./data/portfolio.js";
 import exportPortfolio from "./utils/exportPortfolio.js";
 import styles from "./App.module.css";
@@ -109,11 +110,11 @@ const App = () => {
                         onExport={handleExport}
                     />
 
-                    <section className={styles.previewPanel} id="preview">
-                        <p className={styles.label}>Live site preview</p>
-                        <h2>Your portfolio will appear here.</h2>
-                        <p>Change your details, selected work, and color style to shape the page.</p>
-                    </section>
+                    <SitePreview
+                        profile={portfolio.profile}
+                        projects={portfolio.projects}
+                        theme={selectedTheme}
+                    />
                 </div>
 
                 <section className={styles.aboutPanel} id="about">
