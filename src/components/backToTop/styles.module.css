@@ -1,0 +1,35 @@
+.button {
+    position: fixed;
+    z-index: 30;
+    right: 24px;
+    bottom: 24px;
+    display: grid;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border: 1px solid var(--violet-dark);
+    border-radius: 12px;
+    background: var(--violet-dark);
+    color: #fff;
+    box-shadow: 0 7px 20px rgba(38, 33, 44, 0.22);
+    transition:
+        border-color 150ms ease,
+        box-shadow 150ms ease;
+
+    svg {
+        width: 19px;
+        height: 19px;
+    }
+
+    &:hover,
+    &:focus-visible {
+        border-color: var(--violet);
+        box-shadow: 0 0 0 4px rgba(88, 67, 166, 0.18), 0 7px 20px rgba(38, 33, 44, 0.22);
+        outline: none;
+    }
+
+    @media (max-width: 620px) {
+        right: 14px;
+        bottom: 14px;
+    }
+}

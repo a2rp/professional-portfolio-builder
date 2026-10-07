@@ -3,6 +3,7 @@ import SiteHeader from "./components/siteHeader/index.jsx";
 import PortfolioEditor from "./components/portfolioEditor/index.jsx";
 import SitePreview from "./components/sitePreview/index.jsx";
 import SiteFooter from "./components/siteFooter/index.jsx";
+import BackToTop from "./components/backToTop/index.jsx";
 import { starterPortfolio, themeOptions } from "./data/portfolio.js";
 import exportPortfolio from "./utils/exportPortfolio.js";
 import styles from "./App.module.css";
@@ -129,6 +130,7 @@ const App = () => {
                 </section>
             </main>
             <SiteFooter />
+            <BackToTop />
         </div>
     );
 };
