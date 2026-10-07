@@ -24,7 +24,9 @@
     &:hover,
     &:focus-visible {
         border-color: var(--violet);
-        box-shadow: 0 0 0 4px rgba(88, 67, 166, 0.18), 0 7px 20px rgba(38, 33, 44, 0.22);
+        box-shadow:
+            0 0 0 4px rgba(88, 67, 166, 0.18),
+            0 7px 20px rgba(38, 33, 44, 0.22);
         outline: none;
     }
 

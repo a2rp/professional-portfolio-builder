@@ -68,8 +68,9 @@ const SiteFooter = () => (
                     />
                 </a>
                 <p>
-                    © {new Date().getFullYear()} <a href="https://github.com/a2rp">Ashish Ranjan</a>.
-                    All rights reserved.
+                    © {new Date().getFullYear()}{" "}
+                    <a href="https://github.com/a2rp">Ashish Ranjan</a>. All
+                    rights reserved.
                 </p>
             </div>
 
@@ -78,8 +79,12 @@ const SiteFooter = () => (
                     <a
                         href={url}
                         key={label}
-                        target={url.startsWith("mailto:") ? undefined : "_blank"}
-                        rel={url.startsWith("mailto:") ? undefined : "noreferrer"}
+                        target={
+                            url.startsWith("mailto:") ? undefined : "_blank"
+                        }
+                        rel={
+                            url.startsWith("mailto:") ? undefined : "noreferrer"
+                        }
                     >
                         <Icon aria-hidden="true" />
                         {label}

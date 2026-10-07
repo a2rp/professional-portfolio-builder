@@ -22,7 +22,8 @@ const getImageData = async (fileName) => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => resolve(reader.result);
-        reader.onerror = () => reject(new Error("A portfolio image could not be read."));
+        reader.onerror = () =>
+            reject(new Error("A portfolio image could not be read."));
         reader.readAsDataURL(image);
     });
 };
@@ -102,11 +103,12 @@ footer { display: flex; justify-content: space-between; gap: 16px; padding: 25px
     const objectUrl = URL.createObjectURL(file);
     const link = document.createElement("a");
     link.href = objectUrl;
-    link.download = (profile.name || "my")
-        .toLowerCase()
-        .trim()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)/g, "") + "-portfolio.html";
+    link.download =
+        (profile.name || "my")
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)/g, "") + "-portfolio.html";
     document.body.append(link);
     link.click();
     link.remove();

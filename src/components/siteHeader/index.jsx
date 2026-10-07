@@ -49,21 +49,33 @@ const SiteHeader = () => {
                     <button
                         className={styles.menuButton}
                         type="button"
-                        aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+                        aria-label={
+                            menuOpen ? "Close navigation" : "Open navigation"
+                        }
                         aria-expanded={menuOpen}
                         aria-controls="site-navigation"
                         onClick={() => setMenuOpen(!menuOpen)}
                     >
-                        {menuOpen ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
+                        {menuOpen ? (
+                            <FiX aria-hidden="true" />
+                        ) : (
+                            <FiMenu aria-hidden="true" />
+                        )}
                     </button>
                     <nav
                         className={menuOpen ? styles.navOpen : styles.nav}
                         id="site-navigation"
                         aria-label="Main navigation"
                     >
-                        <a href="#editor" onClick={closeMenu}>Editor</a>
-                        <a href="#preview" onClick={closeMenu}>Live preview</a>
-                        <a href="#about" onClick={closeMenu}>About</a>
+                        <a href="#editor" onClick={closeMenu}>
+                            Editor
+                        </a>
+                        <a href="#preview" onClick={closeMenu}>
+                            Live preview
+                        </a>
+                        <a href="#about" onClick={closeMenu}>
+                            About
+                        </a>
                     </nav>
                 </div>
 

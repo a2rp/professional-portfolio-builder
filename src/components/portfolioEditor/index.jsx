@@ -76,7 +76,10 @@ const PortfolioEditor = ({
                 if (event.shiftKey && document.activeElement === firstButton) {
                     event.preventDefault();
                     lastButton?.focus();
-                } else if (!event.shiftKey && document.activeElement === lastButton) {
+                } else if (
+                    !event.shiftKey &&
+                    document.activeElement === lastButton
+                ) {
                     event.preventDefault();
                     firstButton?.focus();
                 }
@@ -108,7 +111,9 @@ const PortfolioEditor = ({
 
     const deleteProject = () => {
         onProjectsChange(
-            portfolio.projects.filter((project) => project.id !== deleteTarget.id),
+            portfolio.projects.filter(
+                (project) => project.id !== deleteTarget.id,
+            ),
         );
         setDeleteTarget(null);
     };
@@ -122,7 +127,11 @@ const PortfolioEditor = ({
     );
 
     return (
-        <section className={styles.editor} id="editor" aria-labelledby="editor-title">
+        <section
+            className={styles.editor}
+            id="editor"
+            aria-labelledby="editor-title"
+        >
             <div className={styles.heading}>
                 <div>
                     <p className={styles.label}>Your workspace</p>
@@ -137,10 +146,16 @@ const PortfolioEditor = ({
                 </span>
             </div>
 
-            <div className={styles.tabs} role="tablist" aria-label="Portfolio sections">
+            <div
+                className={styles.tabs}
+                role="tablist"
+                aria-label="Portfolio sections"
+            >
                 {editorTabs.map(({ id, label, Icon }) => (
                     <button
-                        className={activeTab === id ? styles.tabActive : styles.tab}
+                        className={
+                            activeTab === id ? styles.tabActive : styles.tab
+                        }
                         key={id}
                         type="button"
                         role="tab"
@@ -163,14 +178,20 @@ const PortfolioEditor = ({
                         </div>
                         <div className={styles.fields}>
                             {profileFields.map((field) => (
-                                <label className={styles.field} key={field.name}>
+                                <label
+                                    className={styles.field}
+                                    key={field.name}
+                                >
                                     <span>{field.label}</span>
                                     <input
                                         type={field.type || "text"}
                                         value={portfolio.profile[field.name]}
                                         required={field.required || false}
                                         onChange={(event) =>
-                                            onProfileChange(field.name, event.target.value)
+                                            onProfileChange(
+                                                field.name,
+                                                event.target.value,
+                                            )
                                         }
                                     />
                                 </label>
@@ -182,7 +203,10 @@ const PortfolioEditor = ({
                                     maxLength="280"
                                     value={portfolio.profile.summary}
                                     onChange={(event) =>
-                                        onProfileChange("summary", event.target.value)
+                                        onProfileChange(
+                                            "summary",
+                                            event.target.value,
+                                        )
                                     }
                                 />
                                 <small>Keep it to a few clear sentences.</small>
@@ -195,18 +219,30 @@ const PortfolioEditor = ({
                     <div className={styles.projectSection}>
                         <div className={styles.sectionHeading}>
                             <h3>Your selected work</h3>
-                            <p>Add a few projects that show what you do best.</p>
+                            <p>
+                                Add a few projects that show what you do best.
+                            </p>
                         </div>
                         <div className={styles.projectList}>
                             {portfolio.projects.map((project) => (
-                                <article className={styles.projectRow} key={project.id}>
+                                <article
+                                    className={styles.projectRow}
+                                    key={project.id}
+                                >
                                     <img
-                                        src={import.meta.env.BASE_URL + "images/" + project.image}
+                                        src={
+                                            import.meta.env.BASE_URL +
+                                            "images/" +
+                                            project.image
+                                        }
                                         alt=""
                                     />
                                     <div className={styles.projectCopy}>
                                         <strong>{project.title}</strong>
-                                        <span>{project.type || "Project"} · {project.year}</span>
+                                        <span>
+                                            {project.type || "Project"} ·{" "}
+                                            {project.year}
+                                        </span>
                                     </div>
                                     <button
                                         className={styles.iconButton}
@@ -228,9 +264,19 @@ const PortfolioEditor = ({
                             ))}
                         </div>
                         {projectDraft ? (
-                            <form className={styles.projectForm} onSubmit={saveProject}>
+                            <form
+                                className={styles.projectForm}
+                                onSubmit={saveProject}
+                            >
                                 <div className={styles.formHeading}>
-                                    <h3>{portfolio.projects.some((project) => project.id === projectDraft.id) ? "Edit project" : "Add a project"}</h3>
+                                    <h3>
+                                        {portfolio.projects.some(
+                                            (project) =>
+                                                project.id === projectDraft.id,
+                                        )
+                                            ? "Edit project"
+                                            : "Add a project"}
+                                    </h3>
                                     <button
                                         className={styles.iconButton}
                                         type="button"
@@ -247,7 +293,12 @@ const PortfolioEditor = ({
                                         maxLength="48"
                                         required
                                         value={projectDraft.title}
-                                        onChange={(event) => updateProjectDraft("title", event.target.value)}
+                                        onChange={(event) =>
+                                            updateProjectDraft(
+                                                "title",
+                                                event.target.value,
+                                            )
+                                        }
                                     />
                                 </label>
                                 <div className={styles.fieldRow}>
@@ -256,7 +307,12 @@ const PortfolioEditor = ({
                                         <input
                                             maxLength="32"
                                             value={projectDraft.type}
-                                            onChange={(event) => updateProjectDraft("type", event.target.value)}
+                                            onChange={(event) =>
+                                                updateProjectDraft(
+                                                    "type",
+                                                    event.target.value,
+                                                )
+                                            }
                                         />
                                     </label>
                                     <label className={styles.field}>
@@ -264,7 +320,12 @@ const PortfolioEditor = ({
                                         <input
                                             maxLength="4"
                                             value={projectDraft.year}
-                                            onChange={(event) => updateProjectDraft("year", event.target.value)}
+                                            onChange={(event) =>
+                                                updateProjectDraft(
+                                                    "year",
+                                                    event.target.value,
+                                                )
+                                            }
                                         />
                                     </label>
                                 </div>
@@ -275,7 +336,12 @@ const PortfolioEditor = ({
                                         maxLength="150"
                                         required
                                         value={projectDraft.description}
-                                        onChange={(event) => updateProjectDraft("description", event.target.value)}
+                                        onChange={(event) =>
+                                            updateProjectDraft(
+                                                "description",
+                                                event.target.value,
+                                            )
+                                        }
                                     />
                                 </label>
                                 <div className={styles.fieldRow}>
@@ -283,10 +349,18 @@ const PortfolioEditor = ({
                                         <span>Cover image</span>
                                         <select
                                             value={projectDraft.image}
-                                            onChange={(event) => updateProjectDraft("image", event.target.value)}
+                                            onChange={(event) =>
+                                                updateProjectDraft(
+                                                    "image",
+                                                    event.target.value,
+                                                )
+                                            }
                                         >
                                             {projectImages.map((image) => (
-                                                <option key={image.file} value={image.file}>
+                                                <option
+                                                    key={image.file}
+                                                    value={image.file}
+                                                >
                                                     {image.name}
                                                 </option>
                                             ))}
@@ -298,7 +372,12 @@ const PortfolioEditor = ({
                                             type="url"
                                             placeholder="https://"
                                             value={projectDraft.link}
-                                            onChange={(event) => updateProjectDraft("link", event.target.value)}
+                                            onChange={(event) =>
+                                                updateProjectDraft(
+                                                    "link",
+                                                    event.target.value,
+                                                )
+                                            }
                                         />
                                     </label>
                                 </div>
@@ -310,7 +389,10 @@ const PortfolioEditor = ({
                                     >
                                         Cancel
                                     </button>
-                                    <button className={styles.primaryButton} type="submit">
+                                    <button
+                                        className={styles.primaryButton}
+                                        type="submit"
+                                    >
                                         <FiCheck aria-hidden="true" />
                                         Save project
                                     </button>
@@ -338,16 +420,23 @@ const PortfolioEditor = ({
                         <div className={styles.themeList}>
                             {themeOptions.map((theme) => (
                                 <button
-                                    className={portfolio.themeId === theme.id ? styles.themeSelected : styles.theme}
+                                    className={
+                                        portfolio.themeId === theme.id
+                                            ? styles.themeSelected
+                                            : styles.theme
+                                    }
                                     key={theme.id}
                                     type="button"
-                                    aria-pressed={portfolio.themeId === theme.id}
+                                    aria-pressed={
+                                        portfolio.themeId === theme.id
+                                    }
                                     onClick={() => onThemeChange(theme.id)}
                                 >
                                     <span
                                         className={styles.themeSwatches}
                                         style={{
-                                            "--theme-background": theme.background,
+                                            "--theme-background":
+                                                theme.background,
                                             "--theme-accent": theme.accent,
                                             "--theme-surface": theme.surface,
                                         }}
@@ -368,7 +457,8 @@ const PortfolioEditor = ({
                         </div>
                         {selectedTheme ? (
                             <p className={styles.themeNote}>
-                                Your preview is using {selectedTheme.name.toLowerCase()}.
+                                Your preview is using{" "}
+                                {selectedTheme.name.toLowerCase()}.
                             </p>
                         ) : null}
                     </div>
@@ -378,9 +468,15 @@ const PortfolioEditor = ({
             <div className={styles.editorFooter}>
                 <div>
                     <p>Ready to share?</p>
-                    <span>{exportStatus || "Your draft stays in this browser."}</span>
+                    <span>
+                        {exportStatus || "Your draft stays in this browser."}
+                    </span>
                 </div>
-                <button className={styles.exportButton} type="button" onClick={onExport}>
+                <button
+                    className={styles.exportButton}
+                    type="button"
+                    onClick={onExport}
+                >
                     <FiDownload aria-hidden="true" />
                     Export website
                 </button>
@@ -408,7 +504,8 @@ const PortfolioEditor = ({
                         </span>
                         <h2 id="delete-title">Remove this project?</h2>
                         <p id="delete-description">
-                            “{deleteTarget.title}” will be removed from your portfolio.
+                            “{deleteTarget.title}” will be removed from your
+                            portfolio.
                         </p>
                         <div className={styles.dialogActions}>
                             <button

@@ -1,7 +1,11 @@
 .appShell {
     min-height: 100vh;
     background:
-        radial-gradient(ellipse at 8% 17%, rgba(231, 220, 117, 0.12), transparent 28%),
+        radial-gradient(
+            ellipse at 8% 17%,
+            rgba(231, 220, 117, 0.12),
+            transparent 28%
+        ),
         var(--page);
 
     .pageContent {
@@ -100,7 +104,6 @@
         .workspace {
             grid-template-columns: minmax(0, 1fr);
         }
-
     }
 
     @media (max-width: 620px) {

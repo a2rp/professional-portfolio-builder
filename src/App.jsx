@@ -10,7 +10,8 @@ import styles from "./App.module.css";
 
 const storageKey = "folio-studio-portfolio";
 
-const createStarterPortfolio = () => JSON.parse(JSON.stringify(starterPortfolio));
+const createStarterPortfolio = () =>
+    JSON.parse(JSON.stringify(starterPortfolio));
 
 const loadPortfolio = () => {
     try {
@@ -47,7 +48,10 @@ const App = () => {
     const savePortfolio = (nextPortfolio) => {
         setPortfolio(nextPortfolio);
         try {
-            window.localStorage.setItem(storageKey, JSON.stringify(nextPortfolio));
+            window.localStorage.setItem(
+                storageKey,
+                JSON.stringify(nextPortfolio),
+            );
             setSaveStatus("Saved in this browser");
         } catch {
             setSaveStatus("Browser storage is unavailable");
@@ -92,11 +96,13 @@ const App = () => {
                         <p className={styles.label}>Your next introduction</p>
                         <h1>Make your work easy to remember.</h1>
                         <p className={styles.intro}>
-                            Build a personal site that gives your best work room to speak.
+                            Build a personal site that gives your best work room
+                            to speak.
                         </p>
                     </div>
                     <span className={styles.projectCount}>
-                        <strong>{portfolio.projects.length}</strong> selected projects
+                        <strong>{portfolio.projects.length}</strong> selected
+                        projects
                     </span>
                 </section>
 
@@ -120,12 +126,14 @@ const App = () => {
                 </div>
 
                 <section className={styles.aboutPanel} id="about">
-                    <p className={styles.label}>A simple way to share your work</p>
+                    <p className={styles.label}>
+                        A simple way to share your work
+                    </p>
                     <h2>From a few details to a page you can send.</h2>
                     <p>
-                        Your draft stays in this browser. When it is ready, export a
-                        self-contained HTML file with your text, project images, and chosen
-                        colors.
+                        Your draft stays in this browser. When it is ready,
+                        export a self-contained HTML file with your text,
+                        project images, and chosen colors.
                     </p>
                 </section>
             </main>
