@@ -12,7 +12,7 @@ Folio Studio is a browser-based tool for building a personal portfolio website. 
 - Three visual themes: Warm clay, Garden violet, and Deep lagoon. The selected theme updates the live page and exported website.
 - A live portfolio preview with desktop and mobile size controls.
 - Automatic browser storage so the draft returns on the same browser and device.
-- A standalone HTML export with the selected text, colors, and project images embedded in the downloaded file.
+- A standalone HTML export with profile and project links, selected text, colors, and project images embedded in the downloaded file.
 - Responsive navigation, a repository link in the header, and a floating Back to top button after scrolling more than 50px.
 
 ## How to use it

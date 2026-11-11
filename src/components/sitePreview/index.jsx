@@ -7,6 +7,7 @@ import {
     FiMonitor,
     FiSmartphone,
 } from "react-icons/fi";
+import safeExternalUrl from "../../utils/safeExternalUrl.js";
 import styles from "./styles.module.css";
 
 const SitePreview = ({ profile, projects, theme }) => {
@@ -17,6 +18,8 @@ const SitePreview = ({ profile, projects, theme }) => {
         .map((word) => word[0])
         .slice(0, 2)
         .join("");
+    const githubUrl = safeExternalUrl(profile.github);
+    const linkedinUrl = safeExternalUrl(profile.linkedin);
     const portfolioStyle = {
         "--site-bg": theme.background,
         "--site-surface": theme.surface,
@@ -181,63 +184,69 @@ const SitePreview = ({ profile, projects, theme }) => {
                             </div>
                             {projects.length ? (
                                 <div className={styles.projectGrid}>
-                                    {projects.map((project, index) => (
-                                        <article
-                                            className={styles.workCard}
-                                            key={project.id}
-                                        >
-                                            <a
-                                                className={styles.cardImage}
-                                                href={
-                                                    project.link ||
-                                                    "#preview-work"
-                                                }
-                                                target={
-                                                    project.link
-                                                        ? "_blank"
-                                                        : undefined
-                                                }
-                                                rel={
-                                                    project.link
-                                                        ? "noreferrer"
-                                                        : undefined
-                                                }
-                                                aria-label={
-                                                    project.title + " project"
-                                                }
+                                    {projects.map((project, index) => {
+                                        const projectUrl = safeExternalUrl(
+                                            project.link,
+                                        );
+                                        const ProjectImage = projectUrl
+                                            ? "a"
+                                            : "div";
+
+                                        return (
+                                            <article
+                                                className={styles.workCard}
+                                                key={project.id}
                                             >
-                                                <img
-                                                    src={
-                                                        import.meta.env
-                                                            .BASE_URL +
-                                                        "images/" +
-                                                        project.image
-                                                    }
-                                                    alt={
-                                                        project.title +
-                                                        " project cover"
-                                                    }
-                                                />
-                                                <span
-                                                    className={
-                                                        styles.cardNumber
+                                                <ProjectImage
+                                                    className={styles.cardImage}
+                                                    {...(projectUrl
+                                                        ? {
+                                                              href: projectUrl,
+                                                              target: "_blank",
+                                                              rel: "noreferrer",
+                                                          }
+                                                        : {})}
+                                                    aria-label={
+                                                        projectUrl
+                                                            ? `${project.title || "Selected work"} project`
+                                                            : undefined
                                                     }
                                                 >
-                                                    0{index + 1}
-                                                </span>
-                                                <FiArrowUpRight aria-hidden="true" />
-                                            </a>
-                                            <div className={styles.cardCopy}>
-                                                <span>
-                                                    {project.type ||
-                                                        "Selected work"}{" "}
-                                                    · {project.year}
-                                                </span>
-                                                <h3>{project.title}</h3>
-                                                <p>{project.description}</p>
-                                            </div>
-                                        </article>
-                                    ))}
+                                                    <img
+                                                        src={
+                                                            import.meta.env
+                                                                .BASE_URL +
+                                                            "images/" +
+                                                            project.image
+                                                        }
+                                                        alt={
+                                                            project.title +
+                                                            " project cover"
+                                                        }
+                                                    />
+                                                    <span
+                                                        className={
+                                                            styles.cardNumber
+                                                        }
+                                                    >
+                                                        0{index + 1}
+                                                    </span>
+                                                    {projectUrl && (
+                                                        <FiArrowUpRight aria-hidden="true" />
+                                                    )}
+                                                </ProjectImage>
+                                                <div className={styles.cardCopy}>
+                                                    <span>
+                                                        {project.type ||
+                                                            "Selected work"}{" "}
+                                                        · {project.year}
+                                                    </span>
+                                                    <h3>{project.title}</h3>
+                                                    <p>{project.description}</p>
+                                                </div>
+                                            </article>
+                                        );
+                                    })}
                                 </div>
                             ) : (
                                 <p className={styles.emptyProjects}>
@@ -275,9 +284,9 @@ const SitePreview = ({ profile, projects, theme }) => {
                                 {profile.name || "Your name"}
                             </span>
                             <span className={styles.socialLinks}>
-                                {profile.github ? (
+                                {githubUrl ? (
                                     <a
-                                        href={profile.github}
+                                        href={githubUrl}
                                         target="_blank"
                                         rel="noreferrer"
                                         aria-label="GitHub"
@@ -285,9 +294,9 @@ const SitePreview = ({ profile, projects, theme }) => {
                                         <FaGithub aria-hidden="true" />
                                     </a>
                                 ) : null}
-                                {profile.linkedin ? (
+                                {linkedinUrl ? (
                                     <a
-                                        href={profile.linkedin}
+                                        href={linkedinUrl}
                                         target="_blank"
                                         rel="noreferrer"
                                         aria-label="LinkedIn"

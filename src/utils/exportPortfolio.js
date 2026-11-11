@@ -1,3 +1,5 @@
+import safeExternalUrl from "./safeExternalUrl.js";
+
 const escapeHtml = (value) =>
     String(value || "").replace(/[&<>"']/g, (character) => {
         const entities = {
@@ -32,8 +34,9 @@ const exportPortfolio = async ({ profile, projects, theme }) => {
     const projectCards = await Promise.all(
         projects.map(async (project) => {
             const image = await getImageData(project.image);
-            const projectLink = /^https?:\/\//i.test(project.link || "")
-                ? `<a href="${escapeHtml(project.link)}" target="_blank" rel="noreferrer">View project</a>`
+            const projectUrl = safeExternalUrl(project.link);
+            const projectLink = projectUrl
+                ? `<a href="${escapeHtml(projectUrl)}" target="_blank" rel="noreferrer">View project</a>`
                 : "";
 
             return `<article class="project">
@@ -51,6 +54,16 @@ const exportPortfolio = async ({ profile, projects, theme }) => {
     const contactEmail = escapeHtml(profile.email);
     const website = escapeHtml(profile.website);
     const about = escapeHtml(profile.summary);
+    const socialLinks = [
+        { label: "GitHub", href: safeExternalUrl(profile.github) },
+        { label: "LinkedIn", href: safeExternalUrl(profile.linkedin) },
+    ]
+        .filter((link) => link.href)
+        .map(
+            (link) =>
+                `<a href="${escapeHtml(link.href)}" target="_blank" rel="noreferrer">${link.label}</a>`,
+        )
+        .join(" · ");
 
     const html = `<!doctype html>
 <html lang="en">
@@ -85,6 +98,7 @@ h3 { margin: 9px 0; font: 500 28px/1.2 Georgia, serif; }
 .about { margin: 100px 0; padding: 40px; border-radius: 14px; background: ${theme.accentSoft}; }
 .about p { max-width: 680px; color: ${theme.muted}; }
 footer { display: flex; justify-content: space-between; gap: 16px; padding: 25px 0; border-top: 1px solid ${theme.line}; color: ${theme.muted}; font-size: 13px; }
+footer a { color: ${theme.accent}; }
 @media (max-width: 640px) { main { width: calc(100% - 32px); } header { align-items: flex-start; } nav { gap: 12px; font-size: 12px; } .hero { padding: 68px 0; } .project { grid-template-columns: 1fr; } .project img { height: 210px; } .project-copy { padding: 22px; } .about { margin: 64px 0; padding: 26px; } footer { flex-direction: column; } }
 </style>
 </head>
@@ -94,7 +108,7 @@ footer { display: flex; justify-content: space-between; gap: 16px; padding: 25px
 <section class="hero" id="top"><p class="role">${escapeHtml(profile.role)} · ${escapeHtml(profile.location)}</p><h1>Thoughtful work, made for real life.</h1><p class="summary">${about}</p><a class="contact" href="mailto:${contactEmail}">Start a conversation</a></section>
 <section id="work"><div class="section-heading"><h2>Selected work</h2><span>${projects.length} projects</span></div><div class="projects">${projectCards.join("")}</div></section>
 <section class="about" id="about"><p class="project-type">A little about me</p><h2>Good work starts with listening.</h2><p>${about}</p></section>
-<footer id="contact"><span>© ${new Date().getFullYear()} ${portfolioTitle}</span><span>${website} · ${contactEmail}</span></footer>
+<footer id="contact"><span>© ${new Date().getFullYear()} ${portfolioTitle}</span><span>${website} · ${contactEmail}</span>${socialLinks ? `<span>${socialLinks}</span>` : ""}</footer>
 </main>
 </body>
 </html>`;
